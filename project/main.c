@@ -10,6 +10,8 @@ typedef struct Peple {
 	int num;
 }peple;
 
+int guestOfNum = 1;
+
 int readyPlay() {
 	int choiceMenu = 0;
 
@@ -88,9 +90,11 @@ int playerSignUp() {
 	}
 }//singUp
 
-void playerSignIn() {
+void playerSignIn(peple ** ptr) {
 	FILE* file, *memberCount_file;
 	char id[20], pw[20], name[20], tmp[20], userType, guestName[20];
+	int status = 0;
+	char message[20] = "";
 	file = fopen("text.txt", "a");
 	memberCount_file = fopen("member_count.txt", "r");
 
@@ -100,6 +104,13 @@ void playerSignIn() {
 	{
 		printf("[ NAME ] : ");
 		scanf("%s", guestName);
+		for (int i = 0; i < guestOfNum; i++) {
+			if (strcmp((*ptr + i)->name, guestName) == 0) {
+				printf("%s\n", (*ptr + i)->name);
+				status++;
+			}
+		}
+		if (status == 0) printf("[ systemp ] : not found your name ");
 	}
 	else if (userType == 'M') {
 		printf("[ ID ] : ");
@@ -107,6 +118,8 @@ void playerSignIn() {
 		printf("[ PW ] : ");
 		scanf("%s", pw);
 	}
+
+	
 }
 
 void print(int fir) {
@@ -157,7 +170,7 @@ int playerPrint(peple** ptr, int num) {
 
 peple * player;
 int num = 0;
-int playerOfNum = 1;
+
 
 int main() {
 	peple* player;
@@ -169,16 +182,16 @@ int main() {
 	while (1) {
 		switch (readyPlay()) {
 		case 1:
-			playerOfNum += guestPlayerAdd(&player, playerOfNum);
+			guestOfNum += guestPlayerAdd(&player, guestOfNum);
 			break;
 		case 2:
-			playerPrint(&player, playerOfNum);
+			playerPrint(&player, guestOfNum);
 			break;
 		case 3:
 			playerSignUp();
 			break;
 		case 4:
-			playerSignIn();
+			playerSignIn(&player);
 			break;
 		case 5:
 			break;
