@@ -1,0 +1,11 @@
+id kim
+pw kim
+name kim
+score 0
+
+id kim
+pw 0824
+name hwa
+score 0
+num 202
+

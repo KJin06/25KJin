@@ -1,5 +1,0 @@
-id kim
-pw kim
-name kim
-score 0
-
